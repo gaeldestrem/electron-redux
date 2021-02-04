@@ -1,8 +1,9 @@
-import { ipcRenderer } from 'electron';
 import validateAction from '../helpers/validateAction';
 
 // eslint-disable-next-line consistent-return, no-unused-vars
 export const forwardToMainWithParams = (params = {}) => store => next => (action) => {
+  const { ipcRenderer } = window.require('electron')
+
   const { blacklist = [] } = params;
   if (!validateAction(action)) return next(action);
   if (action.meta && action.meta.scope === 'local') return next(action);
